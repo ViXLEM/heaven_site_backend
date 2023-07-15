@@ -109,7 +109,7 @@ if bool(env('LOCAL')):
 else:
     DATABASES = {
         'default':
-            env('CLEARDB_GOLD_URL')}
+            dj_database_url.config(default=env('CLEARDB_GOLD_URL'))}
 
 DATE_INPUT_FORMATS = ['%m-%d-%Y']
 
