@@ -109,7 +109,7 @@ if bool(env('LOCAL')):
 else:
     DATABASES = {
         'default':
-            dj_database_url.config(default='mysql://bfb7351ed66c84:511e9413@eu-cdbr-west-03.cleardb.net/heroku_41e9a6289d2f94b')}
+            env('CLEARDB_GOLD_URL')}
 
 DATE_INPUT_FORMATS = ['%m-%d-%Y']
 
