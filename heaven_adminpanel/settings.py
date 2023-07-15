@@ -10,27 +10,30 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
+import environ
 from pathlib import Path
 from datetime import timedelta
-
 import dj_database_url
-from dj_database_url import *
-from django.conf.global_settings import DATABASES
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+
+#print(environ.Env.read_env('/home/alexey/PycharmProjects/Heaven_adminpanel/heaven_site_backend/.env'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8ub6nh30a+64a1wf$#gv%9xetqm$h546po5@8o)qo(vu03cwn_'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['heavensite.herokuapp.com']
+ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
 
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
@@ -96,20 +99,18 @@ WSGI_APPLICATION = 'heaven_adminpanel.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'heaven',
-#         'USER': 'alexey',
-#         'PASSWORD': 'Marcus1146',
-#         'PORT': '3306',
-#     }
-# }
-#
-DATABASES['default'] = dj_database_url.config(
-   default='mysql://bfb7351ed66c84:511e9413@eu-cdbr-west-03.cleardb.net/heroku_41e9a6289d2f94b',
-)
+if bool(env('LOCAL')):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': env('DB_NAME'),
+            'USER': env('DB_USER'),
+            'PASSWORD': env('DB_PASSWORD'),
+            'PORT': env('DB_PORT'), }}
+else:
+    DATABASES = {
+        'default':
+            dj_database_url.config(default='mysql://bfb7351ed66c84:511e9413@eu-cdbr-west-03.cleardb.net/heroku_41e9a6289d2f94b')}
 
 DATE_INPUT_FORMATS = ['%m-%d-%Y']
 
@@ -157,13 +158,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INTERNAL_IPS = [
     # ...
     "127.0.0.1",
+    "heavenfront.herokuapp.com"
+
     # ...
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
     "http://localhost:4200",
-    'https://heavenfront.herokuapp.com/'
+    'https://heavenfront.herokuapp.com'
 ]
 
 REST_FRAMEWORK = {
