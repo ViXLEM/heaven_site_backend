@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'heaven_adminpanel.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-if bool(env('LOCAL')):
+if env('LOCAL') == 'True':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -107,6 +107,7 @@ if bool(env('LOCAL')):
             'PASSWORD': env('DB_PASSWORD'),
             'PORT': env('DB_PORT'), }}
 else:
+    print('ya tut')
     DATABASES = {
         'default':
             dj_database_url.config(default=env('CLEARDB_GOLD_URL'))}
