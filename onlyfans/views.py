@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse, redirect
 from django.views import View
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 
 from users.serializers import ClientSerializer, UserSerializer
 from .models import OnlyFansTable, TableData
@@ -247,7 +248,7 @@ class TableDataSet(viewsets.ModelViewSet):
         if ',' in data:
             data = float(data.replace(",", "."))
 
-        table_data = {"data": data, "data_type": "OP", "table": int(request.data['tableId']),
+        table_data = {"data": round(data,2), "data_type": "OP", "table": int(request.data['tableId']),
                       "date": date(month=int(1), day=int(request.data['date']), year=2023)}
 
         serializer = DataSerializer(data=table_data)
@@ -264,7 +265,12 @@ class TableDataSet(viewsets.ModelViewSet):
 
         td_object = get_object(pk=pk)
 
-        serializer = DataSerializer(td_object, data={'data': request.data['data'], 'date': td_object.date,
+        data = request.data['data']
+
+        if ',' in data:
+            data = float(data.replace(",", "."))
+
+        serializer = DataSerializer(td_object, data={'data': data, 'date': td_object.date,
                                                      'data_type': td_object.data_type,
                                                      'table': int(td_object.table.pk)})
         if serializer.is_valid(raise_exception=True):
@@ -294,6 +300,15 @@ a.get_json_from_base()
 '''
 
 
+def convert_float_to_coma(data):
+    converted_data = ''
+    for i in data:
+        a = str(i).replace('.', ',')
+        converted_data += a
+    return converted_data
+
+
+
 class TableView(viewsets.ModelViewSet):
     queryset = OnlyFansTable.objects.all()
     serializer_class = TableSerializer
@@ -309,7 +324,6 @@ class TableView(viewsets.ModelViewSet):
         # print(dir(OnlyFansTable.objects.prefetch_related('tabledata_set').values('tabledata')))
         # print(OnlyFansTable.objects.prefetch_related('tabledata_set').values('tabledata').all())
 
-
         def get_total_sum():
             sum = 0
             for i in OnlyFansTable.objects.prefetch_related('tabledata_set').values('tabledata').all():
@@ -324,18 +338,20 @@ class TableView(viewsets.ModelViewSet):
         if request.user.is_staff:
             month = request.query_params['month']
             table_list = OnlyFansTable.objects.prefetch_related('tabledata_set').filter(date=f'2023-{month}-01')
-            data = json.dumps(serializer_class(table_list, many=True).data)
+
+            data = serializer_class(table_list, many=True).data
             get_total_sum()
+            return Response(data)
 
         if user_group.filter(name='Operator'):
+            month = request.query_params['month']
             table_list = OnlyFansTable.objects.prefetch_related('tabledata_set').filter(operator=int(request.user.pk),
-                                                                                        date=datetime(year=2023, day=1,
-                                                                                                      month=int(
-                                                                                                          request.query_params.get(
-                                                                                                              "month"))))
+                                                                                        date=f'2023-{month}-01')
 
-            data = json.dumps(serializer_class(table_list, many=True).data)
-            return Response(json.loads(data))
+            data = serializer_class(table_list, many=True).data
+            print(data)
+            print(type(data))
+            return Response(data)
 
     def create(self, request, *args, **kwargs):
 

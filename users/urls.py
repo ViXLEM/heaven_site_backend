@@ -2,7 +2,7 @@
 from django.urls import path, include
 from rest_framework import routers
 from users.views import Register, CreateClient, ClientList, ClientPage, DeleteClient, ClientAPI, PermissionList, \
-    UserAndClientInfo
+    UserAndClientInfo, PromoManagerList
 
 router = routers.SimpleRouter()
 router.register(r'client_api', ClientAPI, basename='client')
@@ -18,5 +18,6 @@ urlpatterns = [
     path('permissions/', PermissionList.as_view(), name='permission_list'),
     path('registration/', include('rest_registration.api.urls')),
     path('userinfo', UserAndClientInfo.as_view(), name='userandclient'),
-    path('client_list/', ClientList.as_view())
+    path('client_list/', ClientList.as_view()),
+    path('promo_list/', PromoManagerList.as_view())
 ]

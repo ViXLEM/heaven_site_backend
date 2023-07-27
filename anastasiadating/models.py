@@ -11,6 +11,8 @@ class AnastasiaDatingTable(models.Model):
     table_type = models.BooleanField(default=False)
 
 
+
+
 class TableData(models.Model):
     date = models.DateField()
     data = models.FloatField(null=True)

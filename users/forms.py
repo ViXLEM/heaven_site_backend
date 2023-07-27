@@ -60,13 +60,13 @@ class CustomUserCreationForm(UserCreationForm):
         return user
 
 
-class CreateClientForm(forms.ModelForm):
-
-    class Meta:
-        model = Client
-        fields = ('name', 'surname', 'country', 'login_of', 'password_of', 'of_email',
-                  'of_password_email', 'paid_account', 'login_of_paid_account','password_of_paid_account',
-                  'email_of_paid_account','password_of_email_paid_account','photo', 'telegram_photos_link')
+# class CreateClientForm(forms.ModelForm):
+#
+#     class Meta:
+#         model = Client
+#         fields = ('name', 'surname', 'country', 'login_of', 'password_of', 'of_email',
+#                   'of_password_email', 'paid_account', 'login_of_paid_account','password_of_paid_account',
+#                   'email_of_paid_account','password_of_email_paid_account','photo', 'telegram_photos_link')
 
 
 class SetOperator(forms.Form):

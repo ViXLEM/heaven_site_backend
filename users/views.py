@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse, redirect
 from rest_framework.decorators import action
 
-from .forms import CreateClientForm, SetOperator, SetPromotion, SetProjectManager
+from .forms import SetOperator, SetPromotion, SetProjectManager
 
 # Create your views here.
 from django.views import View
@@ -154,6 +154,13 @@ class UserAndClientInfo(APIView):
         response = json.dumps({'operator': operator, 'client': client})
         return Response(data=json.loads(response))
 
+class PromoManagerList(APIView):
+
+    def get(self, request):
+        promo_list = User.objects.filter(groups__name="Рекламщики")
+        responce = UserSerializer(promo_list, many=True).data
+        return Response(data=responce)
+
 
 class ClientList(APIView):
 
@@ -163,10 +170,20 @@ class ClientList(APIView):
         response = json.dumps(data)
         return Response(json.loads(response))
 
+
 class ClientAPI(viewsets.ModelViewSet):
 
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
+
+    #def create(self, request):
+     #   print(request.data)
+      #  manager = request.data['manager']
+       #
+    #
+     #   return Response(data="Created!")
+
+
 
 
 

@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     'prime',
     'golden_bride',
     'jump_for_love',
-    'romans_compass'
+    'romans_compass',
+    'core'
 
 ]
 
@@ -107,7 +108,6 @@ if env('LOCAL') == 'True':
             'PASSWORD': env('DB_PASSWORD'),
             'PORT': env('DB_PORT'), }}
 else:
-    print('ya tut')
     DATABASES = {
         'default':
             dj_database_url.config(default=env('CLEARDB_GOLD_URL'))}
