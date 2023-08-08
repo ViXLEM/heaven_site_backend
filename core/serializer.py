@@ -37,6 +37,7 @@ class TableSerializer(serializers.ModelSerializer):
 
     clientSurname = serializers.PrimaryKeyRelatedField(read_only=True, source='client.surname')
     clientName = serializers.PrimaryKeyRelatedField(read_only=True, source='client.name')
+    operatorName = serializers.PrimaryKeyRelatedField(read_only=True, source='operator.username')
     tabledata_set = DataSerializer(many=True, read_only=True)
     Sum = serializers.SerializerMethodField('sum')
 
