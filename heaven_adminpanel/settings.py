@@ -54,12 +54,6 @@ INSTALLED_APPS = [
     'users',
     'onlyfans',
     'debug_toolbar',
-    'anastasiadating',
-    'charm_date',
-    'prime',
-    'golden_bride',
-    'jump_for_love',
-    'romans_compass',
     'core'
 
 ]
@@ -158,15 +152,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INTERNAL_IPS = [
     # ...
     "127.0.0.1",
-    "heavenfront.herokuapp.com"
+    # "heavenfront.herokuapp.com"
     # ...
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
     "http://localhost:4200",
-    "https://heavenfront.herokuapp.com/",
-    "https://heavensite.herokuapp.com/"
+    "https://heavenfront.herokuapp.com",
+    "https://heavensite.herokuapp.com"
 ]
 
 REST_FRAMEWORK = {

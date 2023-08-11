@@ -72,3 +72,5 @@ class DataSerializer(serializers.ModelSerializer):
     class Meta:
         model = TableData
         fields = '__all__'
+
+

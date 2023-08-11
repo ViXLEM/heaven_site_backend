@@ -67,3 +67,8 @@ class TableCreationSerializer(serializers.ModelSerializer):
     class Meta:
         model = OnlyFansTable
         fields = '__all__'
+
+
+
+
+

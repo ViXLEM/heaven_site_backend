@@ -59,3 +59,15 @@ class ClientListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = ['full_name', 'id', 'photo']
+
+
+
+class OperatorToClient(serializers.Serializer):
+
+    operator = serializers.SerializerMethodField('getOperatorList')
+
+    def getOperatorList(self, data_object):
+        pk = getattr(data_object,'pk')
+        name = getattr(data_object, 'name')
+        surname = getattr(data_object, 'surname')
+        return {'id': pk, 'fullName': f'{name} {surname}'}

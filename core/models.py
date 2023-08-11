@@ -18,7 +18,8 @@ PROJECT_NAMES = [
     ('J4', 'JumpForLove'),
     ('GB', 'GoldenBride'),
     ('RM', 'RomansCompass'),
-    ('PM', 'PrimeDate')
+    ('PM', 'PrimeDate'),
+    ('F', 'Fansly')
 ]
 
 
