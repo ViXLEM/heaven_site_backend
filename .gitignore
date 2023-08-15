@@ -5,3 +5,4 @@
 /heaven_adminpanel/data/
 */__pycache__/
 data/
+.idea/*
