@@ -2,9 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-# Create your models here.
-
-
 class User(AbstractUser):
     project = models.ManyToManyField('core.Project')
 
@@ -13,23 +10,25 @@ class User(AbstractUser):
 
 
 def socials_list():
-    return {'Instagram': [],
-            'Facebook': [],
-            'Reddit': [],
-            }
+    return {
+        'Instagram': [],
+        'Facebook': [],
+        'Reddit': [],
+    }
 
 def project_list():
     return {
-            'AnastasiaDating': {
-                'eMAIL': 'Hui',
-                'Login': 'Privet',
-            },
-            'DateMe': [],
-            'CharmDate': [],
-            'GoldenBride': [],
-            'Fansly': [],
-            'OnlyFans': [],
-            'Jump4Love': []}
+        'AnastasiaDating': {
+            'eMAIL': 'Hui',
+            'Login': 'Privet',
+        },
+        'DateMe': [],
+        'CharmDate': [],
+        'GoldenBride': [],
+        'Fansly': [],
+        'OnlyFans': [],
+        'Jump4Love': []
+    }
 
 
 class Client(models.Model):

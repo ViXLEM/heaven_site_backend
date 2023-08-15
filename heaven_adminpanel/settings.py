@@ -51,11 +51,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_registration',
     'corsheaders',
-    'users',
-    'onlyfans',
     'debug_toolbar',
+    'users',
     'core'
-
 ]
 
 MIDDLEWARE = [
@@ -96,15 +94,19 @@ WSGI_APPLICATION = 'heaven_adminpanel.wsgi.application'
 if env('LOCAL') == 'True':
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': env('DB_NAME'),
-            'USER': env('DB_USER'),
-            'PASSWORD': env('DB_PASSWORD'),
-            'PORT': env('DB_PORT'), }}
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'NAME': env('POSTGRES_DB'),
+            'USER': env('POSTGRES_USER'),
+            'PASSWORD': env('POSTGRES_PASSWORD'),
+            'HOST': env('POSTGRES_HOST'),
+            'PORT': env('POSTGRES_PORT'),
+        }
+    }
 else:
     DATABASES = {
         'default':
-            dj_database_url.config(default=env('CLEARDB_GOLD_URL'))}
+            dj_database_url.config(default=env('CLEARDB_GOLD_URL'))
+    }
 
 DATE_INPUT_FORMATS = ['%m-%d-%Y']
 

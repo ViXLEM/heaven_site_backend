@@ -5,7 +5,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, HttpResponse, redirect
 from rest_framework.decorators import action
 
-from .forms import SetOperator, SetPromotion, SetProjectManager
 
 # Create your views here.
 from django.views import View
@@ -97,30 +96,7 @@ from users.serializers import ClientSerializer, PermissionSerializer, UserSerial
 #         return render(request, self.template_name, context)
 
 
-class ClientPage(LoginRequiredMixin,View):
 
-    template_name = 'client/client_page.html'
-
-    def get(self, request, client_id):
-        client = Client.objects.filter(id=client_id)
-        operator_list = SetOperator()
-        promotion_list = SetPromotion()
-        project_list = SetProjectManager()
-
-        current_operators = Client.objects.get(id=client_id).managers.all().filter(groups__name = "Operator")
-        current_promotions = Client.objects.get(id=client_id).managers.all().filter(groups__name = "Рекламщики")
-        current_project = Client.objects.get(id=client_id).managers.all().filter(groups__name = "Project manager")
-
-
-        context = {'form': client[0],
-                   'operator': operator_list,
-                   'promo': promotion_list,
-                   'project': project_list,
-                   'current_operators': current_operators,
-                   'current_promotions': current_promotions,
-                   'current_project': current_project,
-                   }
-        return render(request, self.template_name, context)
 
 
 

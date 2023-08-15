@@ -1,3 +1,7 @@
 /my_env/
+/venv/
 /heaven_adminpanel/settings.py
-/heaven_adminpanel/.env
+/.env
+/heaven_adminpanel/data/
+*/__pycache__/
+data/

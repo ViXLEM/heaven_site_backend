@@ -69,28 +69,4 @@ class CustomUserCreationForm(UserCreationForm):
 #                   'email_of_paid_account','password_of_email_paid_account','photo', 'telegram_photos_link')
 
 
-class SetOperator(forms.Form):
-
-    operator_list = [(operator.pk, operator.username) for operator in User.objects.filter(groups__name='Operator')]
-
-    valuable_operators = forms.ChoiceField(choices=operator_list, label="Выберите оператора")
-
-
-class SetPromotion(forms.Form):
-
-    promotion_list = [(promo.pk, promo.username) for promo in User.objects.filter(groups__name='Рекламщики').filter()]
-
-    valuable_promo = forms.ChoiceField(choices=promotion_list, label="Выберите рекламщика")
-
-
-class SetProjectManager(forms.Form):
-
-    project_manager_list = [(project.pk, project.username) for project
-                            in User.objects.filter(groups__name="Project manager")]
-
-    valuable_project_manager = forms.ChoiceField(choices=project_manager_list, label="Выберите проект менеджера")
-
-
-
-
 
